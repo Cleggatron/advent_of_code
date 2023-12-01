@@ -36,6 +36,6 @@ fn it_handles_multiple_digits(){
 }
 
 #[test]
-fn it_crashes(){
+fn it_returns_none(){
     assert_eq!(None,extract_calibration("abcdefg"));
 }
