@@ -16,3 +16,18 @@ fn extract_calibration(line: &str) -> u32{
     
     first_val.unwrap() * 10 + last_val.unwrap()
 }
+
+#[test]
+fn it_reads_correctly() {
+    assert_eq!(12, extract_calibration("1abc2"));
+}
+
+#[test]
+fn it_handles_multiple_digits(){
+    assert_eq!(12, extract_calibration("a12b3n2m"));
+}
+
+#[test]
+fn it_crashes(){
+    extract_calibration("abcdefg");
+}
