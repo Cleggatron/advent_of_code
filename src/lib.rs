@@ -109,18 +109,19 @@ fn read_line(line: &str) -> Game{
                 let arr: Vec<&str>  = element.trim().split(" ").collect(); 
                 match *arr.get(1).unwrap() {
                     "red" => {
-                        if(current_game.max_red < arr.get(0).unwrap().parse().unwrap()){
+                        if current_game.max_red < arr.get(0).unwrap().parse().unwrap(){
                             current_game.max_red = arr.get(0).unwrap().parse().unwrap();
                         }
+
     
                     },
                     "blue" => {
-                        if(current_game.max_blue < arr.get(0).unwrap().parse().unwrap()){
+                        if current_game.max_blue < arr.get(0).unwrap().parse().unwrap(){
                             current_game.max_blue = arr.get(0).unwrap().parse().unwrap();
                         }
                     },
                     "green" => {
-                        if(current_game.max_green < arr.get(0).unwrap().parse().unwrap()){
+                        if current_game.max_green < arr.get(0).unwrap().parse().unwrap(){
                             current_game.max_green = arr.get(0).unwrap().parse().unwrap();
                         }
                     },
