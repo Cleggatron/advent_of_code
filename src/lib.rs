@@ -57,14 +57,46 @@ pub fn calculate_calibration(file_contents: Vec<&str>) -> u32 {
 #[derive(Debug)]
 struct Game {
     id: u32,
-    red: u32,
-    blue: u32,
-    green: u32
+    max_red: u32,
+    max_blue: u32,
+    max_green: u32,
+    min_red: u32,
+    min_blue: u32,
+    min_green: u32,
+    valid: bool,
+}
+
+impl Game {
+    fn new() -> Game{
+        Game{
+            id: 0,
+            max_red: 0,
+            max_blue: 0,
+            max_green: 0,
+            min_red: 1000000,
+            min_blue: 1000000,
+            min_green: 1000000,
+            valid: false
+        }
+    }
+
+    fn check_game(&mut self) {
+        if self.max_red > 12 || self.max_green > 13 || self.max_blue > 14{
+            self.valid = false;
+        } else {
+            self.valid = true;
+        }
+    }
+    
+
+    fn calculate_power(&self) -> u32 {
+        self.min_blue * self.min_green * self.min_red
+    }
 }
 
 fn read_line(line: &str) -> Game{
 
-    let mut current_game = Game { id: 0, red: 0, blue: 0, green: 0 };
+    let mut current_game = Game::new();
 
     let segments: Vec<&str> = line.rsplit(|p| p ==';'|| p==':').collect();
 
@@ -77,19 +109,19 @@ fn read_line(line: &str) -> Game{
                 let arr: Vec<&str>  = element.trim().split(" ").collect(); 
                 match *arr.get(1).unwrap() {
                     "red" => {
-                        if(current_game.red < arr.get(0).unwrap().parse().unwrap()){
-                            current_game.red = arr.get(0).unwrap().parse().unwrap();
+                        if(current_game.max_red < arr.get(0).unwrap().parse().unwrap()){
+                            current_game.max_red = arr.get(0).unwrap().parse().unwrap();
                         }
     
                     },
                     "blue" => {
-                        if(current_game.blue < arr.get(0).unwrap().parse().unwrap()){
-                            current_game.blue = arr.get(0).unwrap().parse().unwrap();
+                        if(current_game.max_blue < arr.get(0).unwrap().parse().unwrap()){
+                            current_game.max_blue = arr.get(0).unwrap().parse().unwrap();
                         }
                     },
                     "green" => {
-                        if(current_game.green < arr.get(0).unwrap().parse().unwrap()){
-                            current_game.green = arr.get(0).unwrap().parse().unwrap();
+                        if(current_game.max_green < arr.get(0).unwrap().parse().unwrap()){
+                            current_game.max_green = arr.get(0).unwrap().parse().unwrap();
                         }
                     },
                     _ => continue,
@@ -98,31 +130,28 @@ fn read_line(line: &str) -> Game{
         }
 
     }
+    current_game.check_game();
     current_game
 
 }
 
-fn check_game(current_game: &Game, ) -> bool {
-    if current_game.red > 12 || current_game.green > 13 || current_game.blue > 14{
-        return false;
-    } 
-    true
-}
 
-pub fn calculate_ids (lines: Vec<&str>) ->  u32{
-    let mut valid_games:Vec<Game> = Vec::new();
-    let mut all_games: Vec<Game> = Vec::new();
+pub fn calculate_ids (lines: Vec<&str>) ->  (u32, u32){
+    let mut games: Vec<Game> = Vec::new();
     for line in lines {
-        let current_game = read_line(line);
-        match check_game(&current_game){
-            true => valid_games.push(current_game),
-            false => continue
-        } 
+        games.push(read_line(line));
+        
     }
-    let mut total = 0;
+    let mut id_total = 0;
+    let mut power_total = 0;
     
-    for game in valid_games {
-        total += game.id;
+    for game in games {
+        if game.valid {
+            id_total += game.id;
+        }
+
+        power_total += game.calculate_power();
     }
-    total
+
+    (id_total, power_total)
 }

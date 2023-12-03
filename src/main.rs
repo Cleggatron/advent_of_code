@@ -13,8 +13,8 @@ fn main() {
 
     let game_figures = fs::read_to_string("./advent_of_code_input_files/game_figures.txt").expect("Unable to read file");
     let lines: Vec<&str> = game_figures.lines().collect();
-    let total = calculate_ids(lines);
-    println!("{total}");
+    let (id_total , power_total)= calculate_ids(lines);
+    println!("ID Total: {id_total}\nPower Total: {power_total}");
 
 }
 
