@@ -1,3 +1,5 @@
+use std::ops::Deref;
+
 fn extract_calibration(line: &str) -> Option<u32>{
     let mut first_val:Option<u32> = None;
     let mut last_val:Option<u32> = None;
@@ -50,4 +52,69 @@ pub fn calculate_calibration(file_contents: Vec<&str>) -> u32 {
         };
     }
     total
+}
+
+#[derive(Debug)]
+struct Game {
+    id: u32,
+    red: u32,
+    blue: u32,
+    green: u32
+}
+
+fn read_line(line: &str) -> Option<Game>{
+
+    let mut current_game = Game { id: 0, red: 0, blue: 0, green: 0 };
+
+    let segments: Vec<&str> = line.rsplit(|p| p ==';'|| p==':').collect();
+
+    for segment in segments {
+        if segment.contains("Game") {
+            current_game.id = segment.strip_prefix("Game ").unwrap().parse().unwrap();
+        } else {
+            let sub_segments: Vec<&str> = segment.trim().split(",").collect();
+            for element in sub_segments {
+                let arr: Vec<&str>  = element.trim().split(" ").collect(); 
+                match *arr.get(1).unwrap() {
+                    "red" => {
+                        if(current_game.red < arr.get(0).unwrap().parse().unwrap()){
+                            current_game.red = arr.get(0).unwrap().parse().unwrap();
+                        }
+    
+                    },
+                    "blue" => {
+                        if(current_game.blue < arr.get(0).unwrap().parse().unwrap()){
+                            current_game.blue = arr.get(0).unwrap().parse().unwrap();
+                        }
+                    },
+                    "green" => {
+                        if(current_game.green < arr.get(0).unwrap().parse().unwrap()){
+                            current_game.green = arr.get(0).unwrap().parse().unwrap();
+                        }
+                    },
+                    _ => continue,
+                }
+            }
+        }
+
+    }
+    
+    println!("{:?}", current_game);
+
+    match check_game(&current_game) {
+        true => Some(current_game),
+        false => None 
+    }
+}
+
+fn check_game(current_game: &Game, ) -> bool {
+    true
+}
+
+pub fn calculate_ids (lines: Vec<&str>) ->  u32{
+    for line in lines {
+        read_line(line);
+    }
+    
+    0
 }
