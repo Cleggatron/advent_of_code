@@ -39,3 +39,15 @@ fn it_handles_multiple_digits(){
 fn it_returns_none(){
     assert_eq!(None,extract_calibration("abcdefg"));
 }
+
+pub fn calculate_calibration(file_contents: Vec<&str>) -> u32 {
+    let mut total:u32 = 0;
+
+    for line in file_contents {
+        match extract_calibration(line){
+            Some(x) => total += x,
+            None => continue,
+        };
+    }
+    total
+}
