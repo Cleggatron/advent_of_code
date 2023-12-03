@@ -62,7 +62,7 @@ struct Game {
     green: u32
 }
 
-fn read_line(line: &str) -> Option<Game>{
+fn read_line(line: &str) -> Game{
 
     let mut current_game = Game { id: 0, red: 0, blue: 0, green: 0 };
 
@@ -98,13 +98,8 @@ fn read_line(line: &str) -> Option<Game>{
         }
 
     }
-    
-    println!("{:?}", current_game);
+    current_game
 
-    match check_game(&current_game) {
-        true => Some(current_game),
-        false => None 
-    }
 }
 
 fn check_game(current_game: &Game, ) -> bool {
@@ -116,12 +111,13 @@ fn check_game(current_game: &Game, ) -> bool {
 
 pub fn calculate_ids (lines: Vec<&str>) ->  u32{
     let mut valid_games:Vec<Game> = Vec::new();
+    let mut all_games: Vec<Game> = Vec::new();
     for line in lines {
-        match read_line(line) {
-            Some(game) => valid_games.push(game),
-            None => continue,
-        }
-
+        let current_game = read_line(line);
+        match check_game(&current_game){
+            true => valid_games.push(current_game),
+            false => continue
+        } 
     }
     let mut total = 0;
     
