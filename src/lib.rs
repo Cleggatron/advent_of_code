@@ -1,4 +1,4 @@
-use std::ops::Deref;
+use std::{ops::Deref, thread::current};
 
 fn extract_calibration(line: &str) -> Option<u32>{
     let mut first_val:Option<u32> = None;
@@ -108,13 +108,25 @@ fn read_line(line: &str) -> Option<Game>{
 }
 
 fn check_game(current_game: &Game, ) -> bool {
+    if current_game.red > 12 || current_game.green > 13 || current_game.blue > 14{
+        return false;
+    } 
     true
 }
 
 pub fn calculate_ids (lines: Vec<&str>) ->  u32{
+    let mut valid_games:Vec<Game> = Vec::new();
     for line in lines {
-        read_line(line);
+        match read_line(line) {
+            Some(game) => valid_games.push(game),
+            None => continue,
+        }
+
     }
+    let mut total = 0;
     
-    0
+    for game in valid_games {
+        total += game.id;
+    }
+    total
 }

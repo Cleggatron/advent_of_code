@@ -1,6 +1,6 @@
 use std::fs;
 
-use advent_of_code::calculate_calibration;
+use advent_of_code::{calculate_calibration, calculate_ids};
 
 fn main() {
     // Day One
@@ -12,8 +12,9 @@ fn main() {
     //Day Two
 
     let game_figures = fs::read_to_string("./advent_of_code_input_files/game_figures.txt").expect("Unable to read file");
-    println!("{game_figures}");
     let lines: Vec<&str> = game_figures.lines().collect();
+    let total = calculate_ids(lines);
+    println!("{total}");
 
 }
 
