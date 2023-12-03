@@ -1,5 +1,3 @@
-use std::{ops::Deref, thread::current};
-
 fn extract_calibration(line: &str) -> Option<u32>{
     let mut first_val:Option<u32> = None;
     let mut last_val:Option<u32> = None;
@@ -60,9 +58,6 @@ struct Game {
     max_red: u32,
     max_blue: u32,
     max_green: u32,
-    min_red: u32,
-    min_blue: u32,
-    min_green: u32,
     valid: bool,
 }
 
@@ -73,9 +68,6 @@ impl Game {
             max_red: 0,
             max_blue: 0,
             max_green: 0,
-            min_red: 1000000,
-            min_blue: 1000000,
-            min_green: 1000000,
             valid: false
         }
     }
@@ -90,7 +82,7 @@ impl Game {
     
 
     fn calculate_power(&self) -> u32 {
-        self.min_blue * self.min_green * self.min_red
+        return self.max_blue * self.max_green * self.max_red;
     }
 }
 
@@ -112,18 +104,19 @@ fn read_line(line: &str) -> Game{
                         if current_game.max_red < arr.get(0).unwrap().parse().unwrap(){
                             current_game.max_red = arr.get(0).unwrap().parse().unwrap();
                         }
-
     
                     },
                     "blue" => {
                         if current_game.max_blue < arr.get(0).unwrap().parse().unwrap(){
                             current_game.max_blue = arr.get(0).unwrap().parse().unwrap();
                         }
+
                     },
                     "green" => {
                         if current_game.max_green < arr.get(0).unwrap().parse().unwrap(){
                             current_game.max_green = arr.get(0).unwrap().parse().unwrap();
                         }
+
                     },
                     _ => continue,
                 }
