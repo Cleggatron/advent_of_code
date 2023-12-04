@@ -149,3 +149,13 @@ pub fn calculate_ids (lines: Vec<&str>) ->  (u32, u32){
 
     (id_total, power_total)
 }
+
+pub fn calculate_points(lines: Vec<&str>) -> u32 {
+    let mut total = 0;
+
+    for line in lines {
+        //total += calculate points(line);
+        
+    }
+    total
+}
