@@ -154,8 +154,39 @@ pub fn calculate_points(lines: Vec<&str>) -> u32 {
     let mut total = 0;
 
     for line in lines {
-        //total += calculate points(line);
+        total += calculate_scratchcard_points(line);
         
     }
     total
 }
+
+use std::{collections::HashSet};
+
+fn calculate_scratchcard_points(line: &str) -> u32{
+
+    let segments :Vec<&str>= line.split(|c| c == ':' || c == '|').collect();
+
+    let winning_string = *segments.get(1).unwrap();
+    let winning_nums: Vec<&str> = winning_string.trim().split_ascii_whitespace().collect();
+    let scratchcard_string = *segments.get(2).unwrap();
+    let scratchcard_nums: Vec<&str> = scratchcard_string.trim().split_ascii_whitespace().collect();
+
+    let mut winning_nums_set: HashSet<&str> = HashSet::new();
+    for num in winning_nums {
+        winning_nums_set.insert(num.trim());
+    }
+
+    let mut win_count: u32 = 0;
+
+    for num in scratchcard_nums {
+        match winning_nums_set.get(num.trim()) {
+            Some(_val) => {
+                win_count += 1;
+            },
+            None => continue,
+        }
+    }
+    println!("{}", win_count);
+    win_count
+}
+
