@@ -1,6 +1,6 @@
 use std::fs;
 
-use advent_of_code::{calculate_calibration, calculate_ids};
+use advent_of_code::{calculate_calibration, calculate_ids, calculate_points};
 
 fn main() {
     // Day One
@@ -25,7 +25,9 @@ fn main() {
 
     let scratchcard_data = fs::read_to_string("./advent_of_code_input_files/day_4.txt").expect("Unable to read file");
     let lines :Vec<&str> = scratchcard_data.lines().collect();
-    println!("{scratchcard_data}");
+    let mut total = 0;
+    total += calculate_points(lines);
+    println!("Total points: {total}")
 
 }
 
