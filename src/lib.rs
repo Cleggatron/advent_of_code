@@ -160,33 +160,27 @@ pub fn calculate_points(lines: Vec<&str>) -> u32 {
     total
 }
 
-use std::{collections::HashSet};
+use std::{collections::HashSet, ops::Deref};
 
 fn calculate_scratchcard_points(line: &str) -> u32{
 
     let segments :Vec<&str>= line.split(|c| c == ':' || c == '|').collect();
 
-    let winning_string = *segments.get(1).unwrap();
-    let winning_nums: Vec<&str> = winning_string.trim().split_ascii_whitespace().collect();
-    let scratchcard_string = *segments.get(2).unwrap();
-    let scratchcard_nums: Vec<&str> = scratchcard_string.trim().split_ascii_whitespace().collect();
+    let mut winning_string: Vec<&str> = segments.get(1).unwrap().deref().split_ascii_whitespace().collect();
+    let mut ticket_string: Vec<&str> = segments.get(2).unwrap().deref().split_ascii_whitespace().collect();
 
-    let mut winning_nums_set: HashSet<&str> = HashSet::new();
-    for num in winning_nums {
-        winning_nums_set.insert(num.trim());
+
+    let winning_string_nums:HashSet<u32> = winning_string.into_iter().map(|x| x.parse::<u32>().unwrap()).collect();
+    let ticket_nums:HashSet<u32> = ticket_string.into_iter().map(|x| x.parse::<u32>().unwrap()).collect();
+
+    let commonalities:HashSet<&u32> = winning_string_nums.intersection(&ticket_nums).collect();
+
+
+    if commonalities.len() > 0 {
+        return u32::pow(2, (commonalities.len() as u32)-1);
     }
 
-    let mut win_count: u32 = 0;
+    0
 
-    for num in scratchcard_nums {
-        match winning_nums_set.get(num.trim()) {
-            Some(_val) => {
-                win_count += 1;
-            },
-            None => continue,
-        }
-    }
-    println!("{}", win_count);
-    win_count
 }
 
