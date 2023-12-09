@@ -27,9 +27,11 @@ pub fn sum_next_sequences (file_contents: String) -> i32 {
     let lines :Vec<&str> = file_contents.lines().collect();
     let mut total = 0;
     for line in lines {
-        let nums :Vec<i32> = line.trim().split_ascii_whitespace().map(|num| num.parse().unwrap()).collect();
+        let mut nums :Vec<i32> = line.trim().split_ascii_whitespace().map(|num| num.parse().unwrap()).collect();
+
+        //reverse added for two star solution
+        nums.reverse();
         let next = calculate_difference(nums);
-        println!("{}", total);
         total += next;
     } 
     total
