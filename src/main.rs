@@ -66,10 +66,15 @@ fn main() {
 
     // println!("{:?}", lines);
 
+    //Day Eight
+
+    let data = fs::read_to_string("./advent_of_code_input_files/day_8.txt").expect("Unable to read file");
+    
+
     //Day Nine
 
-    let data = fs::read_to_string("./advent_of_code_input_files/day_9.txt").expect("Unable to read file");
-    let result = sum_next_sequences(data);
-    println!("{result}");
+    // let data = fs::read_to_string("./advent_of_code_input_files/day_9.txt").expect("Unable to read file");
+    // let result = sum_next_sequences(data);
+    // println!("{result}");
 }
 
