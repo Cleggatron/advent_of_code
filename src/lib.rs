@@ -203,6 +203,17 @@ fn it_calculates_correctly(){
     assert_eq!(calculate_permutations(7, 9), 4)
 }
 
-fn read_times_and_distances() {
+pub fn calculate_permutations_two(time :usize, distance :usize) -> usize {
+    let mut permutations = 0;
 
+    let mut current_speed :usize= 1;
+    let mut current_time :usize = time-1;
+    while current_speed < time {
+        if current_speed * current_time > distance{
+            permutations +=1;
+        }
+        current_speed += 1;
+        current_time -= 1;
+    }
+    permutations
 }
