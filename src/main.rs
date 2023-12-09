@@ -1,13 +1,18 @@
 use std::{fs, ops::Deref};
 
-use advent_of_code::{calculate_calibration, calculate_ids, calculate_points, calculate_permutations, calculate_permutations_two};
+use advent_of_code::day_one::{calculate_calibration, calculate_calibration_two};
+use advent_of_code::day_two::calculate_ids;
+use advent_of_code::day_four::calculate_points;
+use advent_of_code::day_six::{calculate_permutations, calculate_permutations_two};
+
+
 
 fn main() {
     // Day One
-    // let calibration_figures = fs::read_to_string("./advent_of_code_input_files/day_1.txt").expect("Should have been able to read file");
-    // let lines: Vec<&str> = calibration_figures.lines().collect();
-    // let total = calculate_calibration(lines);
-    // println!("{}", total);
+    let calibration_figures = fs::read_to_string("./advent_of_code_input_files/day_1.txt").expect("Should have been able to read file");
+    //let lines: Vec<&str> = calibration_figures.lines().collect();
+    let total = calculate_calibration_two(calibration_figures);
+    println!("{}", total);
 
     //Day Two
 
@@ -54,10 +59,10 @@ fn main() {
 
     //Day Seven
 
-    let data = fs::read_to_string("./advent_of_code_input_files/day_7.txt").expect("Unable to read file");
-    let lines: Vec<&str> = data.lines().collect();
+    // let data = fs::read_to_string("./advent_of_code_input_files/day_7.txt").expect("Unable to read file");
+    // let lines: Vec<&str> = data.lines().collect();
     
 
-    println!("{:?}", lines);
+    // println!("{:?}", lines);
 }
 
