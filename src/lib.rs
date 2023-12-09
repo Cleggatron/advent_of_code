@@ -183,7 +183,7 @@ fn calculate_scratchcard_points(line: &str) -> u32{
 
 }
 
-fn calculate_permutations(time :u32, distance :u32) -> u32 {
+pub fn calculate_permutations(time :u32, distance :u32) -> u32 {
     let mut permutations = 0;
 
     let mut current_speed :u32= 1;
@@ -201,4 +201,8 @@ fn calculate_permutations(time :u32, distance :u32) -> u32 {
 #[test]
 fn it_calculates_correctly(){
     assert_eq!(calculate_permutations(7, 9), 4)
+}
+
+fn read_times_and_distances() {
+
 }

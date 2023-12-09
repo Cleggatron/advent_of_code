@@ -1,6 +1,6 @@
-use std::fs;
+use std::{fs, ops::Deref};
 
-use advent_of_code::{calculate_calibration, calculate_ids, calculate_points};
+use advent_of_code::{calculate_calibration, calculate_ids, calculate_points, calculate_permutations};
 
 fn main() {
     // Day One
@@ -23,11 +23,30 @@ fn main() {
 
     //Day Four
 
-    let scratchcard_data = fs::read_to_string("./advent_of_code_input_files/day_4.txt").expect("Unable to read file");
-    let lines :Vec<&str> = scratchcard_data.lines().collect();
-    let mut total = 0;
-    total += calculate_points(lines);
-    println!("Total points: {total}")
+    // let scratchcard_data = fs::read_to_string("./advent_of_code_input_files/day_4.txt").expect("Unable to read file");
+    // let lines :Vec<&str> = scratchcard_data.lines().collect();
+    // let mut total = 0;
+    // total += calculate_points(lines);
+    // println!("Total points: {total}")
+
+    //Day Five
+
+    //Todo
+
+    //Day Six
+
+    let speed_distance_data = fs::read_to_string("./advent_of_code_input_files/day_6.txt").expect("Unable to read file");
+    let lines :Vec<&str> = speed_distance_data.lines().collect();
+    let times:Vec<u32> = lines.get(0).unwrap().deref().trim_start_matches("Time:").split_ascii_whitespace().into_iter().map(|num :&str| num.parse::<u32>().unwrap()).collect();
+    let distances:Vec<u32> = lines.get(1).unwrap().deref().trim_start_matches("Distance:").split_ascii_whitespace().into_iter().map(|num :&str| num.parse::<u32>().unwrap()).collect();
+
+    let mut total = 1;
+
+    for num in 0..times.len(){
+        total *= calculate_permutations(*times.get(num).unwrap(), *distances.get(num).unwrap());
+    }
+
+    print!("{total}");
 
 }
 
