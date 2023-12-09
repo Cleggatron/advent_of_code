@@ -51,5 +51,13 @@ fn main() {
     // let distance: usize = 334113513502430;
     // let total = calculate_permutations_two(time, distance);
     // println!("{total}");
+
+    //Day Seven
+
+    let data = fs::read_to_string("./advent_of_code_input_files/day_7.txt").expect("Unable to read file");
+    let lines: Vec<&str> = data.lines().collect();
+    
+
+    println!("{:?}", lines);
 }
 
