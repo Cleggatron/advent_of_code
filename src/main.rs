@@ -1,5 +1,6 @@
 use std::{fs, ops::Deref};
 
+use advent_of_code::day_eight::read_lines;
 use advent_of_code::day_nine::sum_next_sequences;
 use advent_of_code::day_one::{calculate_calibration, calculate_calibration_two};
 use advent_of_code::day_two::calculate_ids;
@@ -69,7 +70,7 @@ fn main() {
     //Day Eight
 
     let data = fs::read_to_string("./advent_of_code_input_files/day_8.txt").expect("Unable to read file");
-    
+    read_lines(data);
 
     //Day Nine
 
